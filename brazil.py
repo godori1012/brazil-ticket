@@ -76,7 +76,7 @@ def find_ticket_button_and_click(driver):
     while True:
         try:
             ticket_button = WebDriverWait(driver, 1).until(
-                EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), '예매하기')]"))
+                EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), '예매하기')]")) # 수정 필요
             )
             
             print("예매하기 버튼 발견! 즉시 클릭합니다.")
@@ -90,7 +90,9 @@ def find_ticket_button_and_click(driver):
             print(f"알 수 없는 오류 발생: {e}")
             time.sleep(1)
             driver.refresh()
-            
+    
+    # 좌석 선택 코드 구현 필요
+
 def main():
     """매크로 실행 메인 함수"""
     options = webdriver.ChromeOptions()
