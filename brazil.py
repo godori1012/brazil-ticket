@@ -68,6 +68,29 @@ def login(driver, user_id, user_pw):
         print(f"로그인 중 알 수 없는 오류 발생: {e}")
         return False
 
+def find_ticket_button_and_click(driver):
+    """'예매하기' 버튼이 활성화될 때까지 페이지를 새로고침하며 대기하고, 활성화되면 즉시 클릭합니다."""
+    print("예매 페이지로 이동합니다.")
+    driver.get(TICKET_PAGE_URL)
+    
+    while True:
+        try:
+            ticket_button = WebDriverWait(driver, 1).until(
+                EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), '예매하기')]"))
+            )
+            
+            print("예매하기 버튼 발견! 즉시 클릭합니다.")
+            ticket_button.click()
+            break
+            
+        except TimeoutException:
+            print("아직 예매 시작 전입니다. 페이지를 새로고침합니다.")
+            driver.refresh()
+        except Exception as e:
+            print(f"알 수 없는 오류 발생: {e}")
+            time.sleep(1)
+            driver.refresh()
+            
 def main():
     """매크로 실행 메인 함수"""
     options = webdriver.ChromeOptions()
@@ -84,7 +107,7 @@ def main():
         driver.quit()
         return
     
-    # 2. 예매 버튼 무한 클릭 (필요시 주석 해제)
+    # 2. 예매 버튼 무한 클릭
     find_ticket_button_and_click(driver)
 
     # 3. 매크로 종료 방지
