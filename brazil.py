@@ -93,6 +93,55 @@ def find_ticket_button_and_click(driver):
     
     # 좌석 선택 코드 구현 필요
 
+def select_seat_and_proceed(driver):
+    """좌석 선택 및 결제 단계를 진행합니다."""
+    print("좌석 선택 및 결제 단계를 시작합니다.")
+    wait = WebDriverWait(driver, 10)
+
+    try:
+        # --- 1. 좌석 선택 페이지 > 선택 가능한 좌석 요소를 찾아서 클릭
+        # 예시: available_seat = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#seat_map .available-seat")))
+        # available_seat.click()
+        print("TODO: 좌석 선택 코드를 여기에 구현해주세요.")
+        time.sleep(2) # 임시 대기
+
+        # 다음 단계 버튼 클릭
+        # 예시: next_button = wait.until(EC.element_to_be_clickable((By.ID, "nextStepButton")))
+        # next_button.click()
+        print("TODO: 좌석 선택 후 다음 버튼 클릭 코드를 여기에 구현해주세요.")
+        time.sleep(2) # 임시 대기
+
+        # --- 2. 결제 정보 입력/확인 페이지
+        
+        # 약관 동의 체크박스 클릭 (필요한 경우)
+        # 예시: agree_checkbox = wait.until(EC.element_to_be_clickable((By.ID, "agreeTerms")))
+        # agree_checkbox.click()
+        print("TODO: 약관 동의 체크박스 클릭 코드를 여기에 구현해주세요.")
+        time.sleep(2) # 임시 대기
+
+        # 결제 수단 선택 (필요한 경우)
+        # 예시: payment_method = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[value='creditcard']")))
+        # payment_method.click()
+        print("TODO: 결제 수단 선택 코드를 여기에 구현해주세요.")
+        time.sleep(2) # 임시 대기
+
+        # 최종 결제 버튼 클릭
+        # 예시: final_pay_button = wait.until(EC.element_to_be_clickable((By.ID, "finalPayButton")))
+        # final_pay_button.click()
+        print("TODO: 최종 결제 버튼 클릭 코드를 여기에 구현해주세요.")
+        time.sleep(2) # 임시 대기
+
+        print("좌석 선택 및 결제 단계 완료.")
+        return True
+    except TimeoutException:
+        print("좌석 선택/결제 단계에서 시간 초과가 발생했습니다.")
+        print(f"현재 URL: {driver.current_url}")
+        return False
+    except Exception as e:
+        print(f"좌석 선택/결제 중 오류 발생: {e}")
+        print(f"현재 URL: {driver.current_url}")
+        return False
+
 def main():
     """매크로 실행 메인 함수"""
     options = webdriver.ChromeOptions()
@@ -112,7 +161,13 @@ def main():
     # 2. 예매 버튼 무한 클릭
     find_ticket_button_and_click(driver)
 
-    # 3. 매크로 종료 방지
+    # # 3. 좌석 선택 및 결제 단계
+    # if not select_seat_and_proceed(driver):
+    #     print("좌석 선택 및 결제 단계에 실패하여 프로그램을 종료합니다.")
+    #     driver.quit()
+    #     return
+
+    # 4. 매크로 종료 방지
     print("자동화 단계를 완료했습니다. 5분 후 브라우저가 종료됩니다.")
     time.sleep(300)
     driver.quit()
